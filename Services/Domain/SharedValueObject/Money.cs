@@ -8,7 +8,12 @@ public class Money
     }
 
     public static Money operator -(Money left, Money right)
-    => new Money(left.Value - right.Value);
+    {
+        if (left < right)
+            throw new InvalidOperationException(
+                "First Value Can Not Be Grater Than Second Value!");
+        return new Money(left.Value - right.Value);
+    }
 
     public static Money operator +(Money left, Money right)
     => new Money(left.Value + right.Value);
@@ -26,6 +31,6 @@ public class Money
     => left.Value >= right.Value;
 
     public static implicit operator Money(decimal amount)
-    => new Money(amount);
+    => new(amount);
 
 }
