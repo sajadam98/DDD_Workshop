@@ -1,4 +1,5 @@
-public class Money
+
+public class Money : ValueObject
 {
     public decimal Value { get; }
     public Money(decimal amount)
@@ -33,4 +34,11 @@ public class Money
     public static implicit operator Money(decimal amount)
     => new(amount);
 
+    public Money Add(Money amountToAdd)
+    => new Money(Value + amountToAdd.Value);
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Value;
+    }
 }
